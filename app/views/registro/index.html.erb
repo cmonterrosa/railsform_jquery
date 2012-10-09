@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="keywords" content="basic jquery validation form demo" />
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' %>
+<%= javascript_include_tag 'script.js' %>
+<%= javascript_include_tag 'jquery.validate.min.js' %>
+
+<title>Registro</title>
+
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<%= stylesheet_link_tag "form/bootstrap"%>
+
+<style>
+body {
+    background-color: #C6F5F2;
+}
+#content { background-color:#C6F5F2; width:950px; min-height:550px; text-align:left; padding:20px;  }
+h1 {
+    padding:20px 10px 20px 10px;
+}
+h2 {
+    padding-left: 0px !important;
+}
+#header {
+    background-color: #CA410B !important;
+}
+.large { font-size:22px; }
+.orange { color:orange; }
+.italic { font-style:italic }
+.textmiddle {vertical-align:middle;}
+.padout { padding-left:25px; padding-right:25px; }
+.rounded-corners {
+     -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -khtml-border-radius: 40px;
+    border-radius: 40px;
+}
+.rounded-corners-top {
+     -moz-border-top-radius: 40px;
+    -webkit-border-radius: 40px;
+    -khtml-border-radius: 40px;
+    border-radius: 40px;
+}
+.right {
+    float: right;
+}
+.scrolldown { padding-left:20px; color:#EDECE8; font-size:40px; font-weight:bold; vertical-align:middle;
+	text-shadow: #6374AB 2px 2px 2px;
+ }
+ .contentblock { margin: 0px 20px; }
+ .results { border: 1px solid blue; padding:20px; margin-top:20px; min-height:50px; }
+ .blue-bold { font-size:18px; font-weight:bold; color:blue; }
+
+ /* example styles for validation form demo */
+#register-form {
+    background: url("/images/form-fieldset.gif") repeat-x scroll left bottom #F8FDEF;
+    border: 1px solid #DFDCDC;
+    border-radius: 15px 15px 15px 15px;
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 25px 50px 10px;
+    width: 350px;
+}
+
+#register-form .fieldgroup {
+    background: url("/images/form-divider.gif") repeat-x scroll left top transparent;
+    display: inline-block;
+    padding: 8px 10px;
+    width: 340px;
+}
+
+#register-form .fieldgroup label {
+    float: left;
+    padding: 15px 0 0;
+    text-align: right;
+    width: 110px;
+}
+
+#register-form .fieldgroup input, #register-form .fieldgroup textarea, #register-form .fieldgroup select {
+    float: right;
+    margin: 10px 0;
+    height: 25px;
+}
+
+#register-form .submit {
+    padding: 10px;
+    width: 220px;
+    height: 40px !important;
+}
+
+#register-form .fieldgroup label.error {
+    color: #FB3A3A;
+    display: inline-block;
+    margin: 4px 0 5px 125px;
+    padding: 0;
+    text-align: left;
+    width: 220px;
+}
+</style>
+
+<script type="text/javascript">
+
+(function($,W,D)
+{
+    var JQUERY4U = {};
+
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+            $("#register-form").validate({
+                rules: {
+
+                    paterno: "required",
+                    cct_nombre: "required",
+                    nombre: "required",
+                    correo: {
+                        required: true,
+                        email: true
+                    },
+                    telefono: {
+                      required: true, 
+                      number: true,
+                      minlength: 10},
+
+                    funcion: {
+                        required: true
+                    },
+                    agree: "required",
+                    nivel: {
+                      required: true,
+                      minlength: 1
+                    }
+                },
+                messages: {
+                    paterno: "Introduzca su apellido paterno",
+                    cct_nombre: "Introduzca el nombre de la escuela",
+                    nombre: "Introduzca su nombre",
+                    funcion: {
+                        required: "Introduzca la función o cargo que desempeña"
+                    },
+                    telefono: {
+                        required: "Introduza su numero celular",
+                        number: "Introduza números",
+                        minlength: "Introduzca 10 números, ejemplo 9611345687"
+                    },
+                    correo: "Introduzca un correo electrónico válido",
+                    agree: "Acepte las políticas",
+                    /*municipio: {
+                      required:  "Seleccione su municipio de origen",
+                      minlength: "Seleccione su municipio de origen"
+                    },*/
+                    nivel: "Seleccione su nivel educativo"
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
+    });
+
+})(jQuery, window, document);
+</script>
+
+</head>
+<body>
+<div id="page-wrap">
+
+
+
+
+<div id="content">
+<h1 align="center">Pre-registro de participantes</h1>
+
+<!-- HTML form for validation demo -->
+<form action="save" method="post" id="register-form" novalidate="novalidate">
+   <div id="form-content">
+        <fieldset>
+
+            <div class="fieldgroup">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre">
+            </div>
+
+            <div class="fieldgroup">
+                <label for="paterno">Apellido Paterno</label>
+                <input type="text" name="paterno">
+            </div>
+
+            <div class="fieldgroup">
+                <label for="materno">Apellido Materno</label>
+                <input type="text" name="materno">
+            </div>
+
+            <div class="fieldgroup">
+                <label for="email">Correo electrónico</label>
+                <input type="text" name="correo">
+            </div>
+
+           <div class="fieldgroup">
+                <label for="email">Teléfono celular</label>
+                <input type="text" name="telefono">
+            </div>
+
+            <div class="fieldgroup">
+                <label for="password">Función o cargo</label>
+                <input type="text" name="funcion">
+            </div>
+
+
+            <div class="fieldgroup">
+                <label for="cct_nombre">Nombre de la escuela</label>
+                <input type="text" name="cct_nombre">
+            </div>
+
+            <div class="fieldgroup">
+                <label for="cct">Clave de la escuela</label>
+                <input type="text" name="cct">
+            </div>
+
+
+            <div class="fieldgroup">
+                <label for="municipio">Municipio donde su ubica</label>
+                 <%=select("municipio", nil, Municipio.all.map {|u| [u.descripcion,u.id]}, :prompt => "Seleccione una opción") %>
+            </div>
+          
+            <div class="fieldgroup">
+                <label for="nivel">Nivel</label>
+                 <%=select("nivel", nil, Nivel.all.map {|u| [u.descripcion,u.id]}, :prompt => "Seleccione una opción") %>
+            </div>
+
+          
+            <div class="fieldgroup">
+                <input type="submit" value="Registrar" class="submit">
+            </div>
+
+        </fieldset>
+    </div>
+
+        
+  </form>
+  <!-- END HTML form for validation -->
+  </div>
+</div> <!-- end page wrap -->
+
+</body>
+</html>
